@@ -6,18 +6,67 @@ Baseline model for "GraspNet-1Billion: A Large-Scale Benchmark for General Objec
 [[API](https://github.com/graspnet/graspnetAPI)]
 [[doc](https://graspnetapi.readthedocs.io/en/latest/index.html)]
 
-<div align="center">    
-    <img src="https://github.com/chenxi-wang/materials/blob/master/graspnet-baseline/doc/gifs/scene_0114.gif", width="240", alt="scene_0114" />
-    <img src="https://github.com/chenxi-wang/materials/blob/master/graspnet-baseline/doc/gifs/scene_0116.gif", width="240", alt="scene_0116" />
-    <img src="https://github.com/chenxi-wang/materials/blob/master/graspnet-baseline/doc/gifs/scene_0117.gif", width="240", alt="scene_0117" />
-    <br> Top 50 grasps detected by our baseline model.
-</div>
+[//]: # (<div align="center">    )
+
+[//]: # (    <img src="https://github.com/chenxi-wang/materials/blob/master/graspnet-baseline/doc/gifs/scene_0114.gif", width="240", alt="scene_0114" />)
+
+[//]: # (    <img src="https://github.com/chenxi-wang/materials/blob/master/graspnet-baseline/doc/gifs/scene_0116.gif", width="240", alt="scene_0116" />)
+
+[//]: # (    <img src="https://github.com/chenxi-wang/materials/blob/master/graspnet-baseline/doc/gifs/scene_0117.gif", width="240", alt="scene_0117" />)
+
+[//]: # (    <br> Top 50 grasps detected by our baseline model.)
+
+[//]: # (</div>)
 
 ![teaser](doc/teaser.png)
 
+check this issue if you are using higher version of pytorch
+```
+https://github.com/graspnet/graspnet-baseline/issues/73
+```
+if you meet
+```azure
+AttributeError: module 'numpy.typing' has no attribute 'NDArray'
+```
+you can try to install numpy typing
+```bash
+pip uninstall -y numpy
+pip install numpy
+pip install numpy==1.20.3
+```
+if you meet
+```
+AttributeError: module 'numpy' has no attribute 'float'.
+```
+try
+```azure
+# _MAX_FLOAT = np.maximum_sctype(np.float)
+# _FLOAT_EPS = np.finfo(np.float).eps
+# change to:
+_MAX_FLOAT = np.maximum_sctype(float)
+_FLOAT_EPS = np.finfo(float).eps
+```
+
+
+if you meet
+```azure
+from torch._six import container_abcs
+ModuleNotFoundError: No module named 'torch._six'
+```
+you can try to install pytorch 1.6
+```bash
+https://github.com/NVIDIA/apex/issues/1048
+```
+
+refer to command_demo.sh to run the program
+```bash
+CUDA_VISIBLE_DEVICES=0 python demo.py --checkpoint_path logs/log_kn/checkpoint.tar
+```
+
 ## Requirements
 - Python 3
-- PyTorch 1.6
+
+~~- PyTorch 1.6~~
 - Open3d >=0.8
 - TensorBoard 2.3
 - NumPy

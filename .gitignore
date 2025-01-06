@@ -12,5 +12,5 @@
 *.so
 *.egg
 **/*.egg-info/**
-logs
+#logs
 dataset/tolerance
